@@ -4,7 +4,8 @@
  * Descripcion:
  * Este programa prende y apaga un led del pin P0.22 de forma intermitente
  * Ademas el tiempo de retardo es controlado por una señal digital proveniente del
- * pin P2.10 configurado como entrada con resistencia de pull-down.
+ * pin P2.10 configurado como entrada con resistencia de pull-down. 
+ * Si se mantiene pulsado el push button la frecuencia del parpadeo aumenta.
 */
 
 #include "LPC17xx.h"
