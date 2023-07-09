@@ -14,18 +14,18 @@
 
 #include "LPC17xx.h"
 
-// Definiciones
-#define DIGITOS 			(uint16_t)   10
+/* Definiciones de macros */
+#define DIGITOS 	        (uint16_t)   10
 #define TIEMPO_RETARDO		(uint32_t)   5000000
 
-// Prototipos
+/* Prototipos */
 void config_GPIO(void);
 void retardo(uint32_t tiempo);
 
-// Variables globales
+/* Variables globales */
 uint16_t numDisplay[DIGITOS] = {0x3F, 0x06, 0x5B, 0x4F, 0x66, 0x6D, 0x7D, 0x07, 0x7F, 0x6F};
 
-// Programa principal.
+/* Programa principal */
 int main(void) {
 	uint32_t i;
 
@@ -33,22 +33,27 @@ int main(void) {
 
     while(1) {
     	for(i=0 ; i<DIGITOS ; i++){
-    		LPC_GPIO2 -> FIOCLR0 |= 0xFF;
-    		LPC_GPIO2 -> FIOPIN0 = numDisplay[i];
-			retardo(TIEMPO_RETARDO);
+    		LPC_GPIO2 -> FIOCLR0 |= 0xFF;           // Apaga el display por un instante.
+    		LPC_GPIO2 -> FIOPIN0 = numDisplay[i];   // Carga P0.0 a P0.7 con el valor correspondiente.
+		retardo(TIEMPO_RETARDO);      		// Retardo para mantener encendido el display
     	}
     }
     return 0 ;
 }
 
+/* Función que configura los pines GPIO */
 void config_GPIO(void){
-	LPC_PINCON-> PINSEL4 &= ~(0xFFFF); 	// P2.0 a P2.7 como GPIO.
-	LPC_GPIO2 -> FIOMASK0 |= (1<<7);    // Enmascara P2.7
-	LPC_GPIO2 -> FIODIR0 |= 0xFF;       // P2.0 a P2.7 como salida.
-	LPC_GPIO2 -> FIOCLR0 |= 0xFF;		// Limpia P2.0 a P2.7
+	LPC_PINCON-> PINSEL4  &= ~(0xFFFF); 	// P2.0 a P2.7 como GPIO.
+	LPC_GPIO2 -> FIOMASK0 |= (1<<7);        // Enmascara P2.7 porque no se usa.
+	LPC_GPIO2 -> FIODIR0  |= 0xFF;          // P2.0 a P2.7 como salida.
+	LPC_GPIO2 -> FIOCLR0  |= 0xFF;		// Limpia P2.0 a P2.7
 	return;
 }
 
+/*
+* Funcion que implementa el retardo 
+* @par tiempo El valor de cuenta maxímo del ciclo for.
+*/
 void retardo(uint32_t tiempo){
 	uint32_t conta;
 	for(conta=0 ; conta < tiempo ; conta++ ){
