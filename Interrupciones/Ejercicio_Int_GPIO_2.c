@@ -12,11 +12,14 @@
 
 #include "LPC17xx.h"
 
+/* Prototipos de funciones */
 void configGPIO(void);
 void configGPIOInt(void);
 
-uint16_t auxiliar;
+/* Variables globales */
+uint16_t auxiliar = 0;
 
+/* Programa principal */
 int main(void) {
 	configGPIO();
 	configGPIOInt();
@@ -26,6 +29,7 @@ int main(void) {
     return 0 ;
 }
 
+/* Configuración de GPIO */
 void configGPIO(void){
 	LPC_PINCON->PINSEL0 &= ~(3<<0); // P0.0 y P2.0 como GPIO
 	LPC_PINCON->PINSEL4 &= ~(3<<0);
@@ -34,6 +38,7 @@ void configGPIO(void){
 	return;
 }
 
+/* Configuración de interrupciones por GPIO */
 void configGPIOInt(void){
 	LPC_GPIOINT->IO0IntEnR |= (1<<0);
 	LPC_GPIOINT->IO2IntEnR |= (1<<0);
@@ -43,6 +48,7 @@ void configGPIOInt(void){
 	return;
 }
 
+/* ISR de interrupción por puerto */
 void EINT3_IRQHandler(void){
 	if(LPC_GPIOINT->IO0IntStatR & (1<<0)){
 		auxiliar = 0b100111;
