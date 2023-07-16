@@ -30,9 +30,8 @@ uint8_t	inte = 0;			// Flag de interrupción por Systick.
 int main(void) {
 
 	configGPIO();		// Configura GPIO
-	configIntExt();		// Configura Int. Externas EINT1 por flanco de bajada
-						// y EINT2 por flanco de subida.
-	SysTick->CTRL=0;    // Inicializa el SysTick deactivado.
+	configIntExt();		// Configura Int. Externas EINT1 por flanco de bajada y EINT2 por flanco de subida.
+	SysTick->CTRL=0;        // Inicializa el SysTick desactivado.
 
     while(1) {
     	/*
@@ -99,7 +98,7 @@ void EINT2_IRQHandler(void){
 }
 
 void SysTick_Handler(void){
-	inte ^= 1;  // intercambia el estado del flag.
-	SysTick->CTRL  &= SysTick-> CTRL; 	//Se lee el registro STCTRL para limpiar el flag de desborde COUNTFLAG.
+	inte ^= 1;  				// Intercambia el estado del flag.
+	SysTick->CTRL  &= SysTick-> CTRL; 	// Se lee el registro STCTRL para limpiar el flag de desborde COUNTFLAG.
 	return;
 }
