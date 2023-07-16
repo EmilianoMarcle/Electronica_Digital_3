@@ -3,7 +3,7 @@
  @Alumno      : Marclé Emiliano
  @Carrera     : Ing. Electronica
  @Descripcion : Este programa realiza el parpadeo de un LED conectado en P0.22
- 	 	 	   y modifica mediante SysTick la frecuencia de parpadeo.
+ 	 	 y modifica mediante SysTick la frecuencia de parpadeo.
  ===============================================================================
  */
 
@@ -14,7 +14,6 @@ uint32_t inte = 0;
 /**
  * Prototipos de funciones
  */
-void retardo(void);
 void configGPIO(void);
 
 /**
@@ -31,11 +30,9 @@ int main(void) {
 	while (1) {
 			if (inte % 2) {
 				LPC_GPIO0->FIOSET |= (1 << 22);
-				retardo();
 			}
 			else {
 				LPC_GPIO0->FIOCLR |= (1 << 22);
-				retardo();
 			}
 		}
 		return 0;
@@ -57,13 +54,3 @@ void SysTick_Handler(void) {
 	SysTick->CTRL &= SysTick->CTRL;
 	return;
 }
-
-/**
- * Retardo para mantener encendido el LED
- */
-void retardo(void){
-	for(uint32_t i=0 ; i<10000; i++){
-	}
-	return;
-}
-
