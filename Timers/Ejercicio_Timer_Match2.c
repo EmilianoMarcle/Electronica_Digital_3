@@ -18,8 +18,6 @@
 void confIntExt(void);
 void confTimer(void);
 
-
-
 /* Programa principal */
 int main(void) {
 
