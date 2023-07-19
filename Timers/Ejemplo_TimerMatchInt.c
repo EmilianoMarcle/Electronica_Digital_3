@@ -2,10 +2,10 @@
 ===============================================================================
  Nombre      : Marclé, Emiliano
  Descripcion : En este programa se configura el TIM0 para togglear P0.22
- 	 	 	   cada vez que se produce un match en MAT0.0.
- 	 	 	   Se genera una interrupción en el Match en la cual se implementa
- 	 	 	   el parpadeo en el pin P0.22.
- 	 	 	   En el pin P1.28 se tiene tambien la señal de salida cuadrada generada.
+ 	       cada vez que se produce un match en MAT0.0.
+ 	       Se genera una interrupción en el Match en la cual se implementa
+ 	       el parpadeo en el pin P0.22.
+ 	       En el pin P1.28 se tiene tambien la señal de salida cuadrada generada.
                por el toggle en MR0.
 ===============================================================================
 */
