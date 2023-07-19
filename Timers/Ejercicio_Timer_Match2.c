@@ -21,7 +21,7 @@ void confTimer(void);
 /* Programa principal */
 int main(void) {
 
-	confIntExt();		// Configuración Int. por GPIO
+	confIntExt();		// Configuración Int. por EINT1
 	confTimer();		// Configuración TIM0
 
     while(1) {
