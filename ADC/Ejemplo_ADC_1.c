@@ -16,7 +16,7 @@ void confADC(void);
 void ADC_IRQHandlet(void);
 
 /* ------- Variables globales ---------*/
-uint16_t ADC0Value;
+__IO uint16_t ADC0Value;
 
 /* ------- Programa principal ---------*/
 int main(void){
