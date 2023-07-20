@@ -97,7 +97,7 @@ void confTimer(void){
  * Si el valor convertido es mayor a 2055 enciende/apaga un led en P0.9
  */
 void ADC_IRQHandler(void){
-	static uint16_t ADC0Value = 0;
+	__IO uint16_t ADC0Value = 0;
 	float volt = 0;
 
 	/* Guarda el valor convertido */
