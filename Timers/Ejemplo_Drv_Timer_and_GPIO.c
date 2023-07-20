@@ -1,18 +1,19 @@
 /*
 ===============================================================================
  Nombre      : Marclé Emiliano
- Descripcion :
+ Descripción : Este programa configura el TIM0 para interrumpir en Match0, y
+ 	 	 	   generar el parpadeo del led en P0.22
 ===============================================================================
 */
 
 #include "LPC17xx.h"
 
-//Include de libreria
+/* Include de librerías del Driver */
 #include "lpc17xx_timer.h"
 #include "lpc17xx_pinsel.h"
 #include "lpc17xx_gpio.h"
 
-//Definiciones
+/* ----------- Macros ------------ */
 #define INPUT		((uint8_t)	0)
 #define OUTPUT		((uint8_t)	1)
 #define PIN_22		((uint32_t)(1<<22))
@@ -21,11 +22,11 @@
 #define PORT_TWO	((uint8_t)  2)
 #define PORT_THREE  ((uint8_t)  3)
 
-//Prototipos de funciones
+/* --- Prototipos de funciones --- */
 void config_GPIO(void);
 void config_timer(void);
 
-//Programa Principal
+/* ----- Programa Principal ------ */
 int main(void) {
 
 	config_GPIO();
@@ -37,6 +38,7 @@ int main(void) {
     return 0 ;
 }
 
+/* Función de configuración de GPIO */
 void config_GPIO(void){
 	/* Variable de tipo estructura PINSEL */
 	PINSEL_CFG_Type pin_configuration;
@@ -57,13 +59,17 @@ void config_GPIO(void){
 	return;
 }
 
+/* Función de configuración de TIM0 */
 void config_timer(void){
+	/* Definicion de variables de tipo estructura */
 	TIM_TIMERCFG_Type struct_config;			// Estructura TIMERCFG
 	TIM_MATCHCFG_Type struct_match;				// Estructura MATCH
 
+	/* Configuración de la estructura TIMERCFG */
 	struct_config.PrescaleOption = TIM_PRESCALE_USVAL;	// Configuracion prescaler en us
 	struct_config.PrescaleValue  = 100;					// 100us
 
+	/* Configuración de la estructura MATCHCFG */
 	struct_match.MatchChannel    	= 0;
 	struct_match.IntOnMatch      	= ENABLE;
 	struct_match.ResetOnMatch    	= ENABLE;
@@ -71,20 +77,24 @@ void config_timer(void){
 	struct_match.ExtMatchOutputType = TIM_EXTMATCH_NOTHING;
 	struct_match.MatchValue			= 9999;
 
-	TIM_Init(LPC_TIM0, TIM_TIMER_MODE, &struct_config); // Con esta funcion se enciende
-														// el Timer.
-	//LPC_SC->PCONP |= (0<<1); //Apaga TIM0.
+	/* Inicialización del Timer */
+	TIM_Init(LPC_TIM0, TIM_TIMER_MODE, &struct_config); // Con esta funcion se enciende el Timer.
+
+	/* Cargado de la  configuración del Match */
 	TIM_ConfigMatch(LPC_TIM0, &struct_match);
 
+	/* Habilitación del Timer*/
 	TIM_Cmd(LPC_TIM0,ENABLE);
 
+	/* Habilitación de int. en NVIC */
 	NVIC_EnableIRQ(TIMER0_IRQn);
 
 	return;
 }
 
+/* ---- Handler del TIM0 ---- */
 void TIMER0_IRQHandler(void){
-	TIM_ClearIntPending(LPC_TIM0,TIM_MR0_INT);
+	TIM_ClearIntPending(LPC_TIM0,TIM_MR0_INT);	// Limpia el flag de Int.
 
 	if((GPIO_ReadValue(PORT_ZERO)) & PIN_22){
 		GPIO_ClearValue(PORT_ZERO, PIN_22);
@@ -95,3 +105,4 @@ void TIMER0_IRQHandler(void){
 
 	return;
 }
+
