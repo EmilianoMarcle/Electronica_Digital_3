@@ -21,7 +21,7 @@ void confGPIO(void);
 void confADC(void);
 
 /* ------- Variables globales -------- */
-volatile uint16_t ADC_Val [4]; // Arreglo de valores para guardar conversiones de los 4 canales.
+__IO uint16_t ADC_Val [4]; // Arreglo de valores para guardar conversiones de los 4 canales.
 
 /* -------- Programa principal ------- */
 int main(void) {
