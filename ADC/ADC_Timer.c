@@ -1,7 +1,8 @@
 /*
 ===============================================================================
- Name        : ADC_Timer.
- Description : Programa que utiliza Timer para disparar ADC cuando hay
+ Nombre : ADC_Timer
+ Alumno : Marclé Emiliano
+ Descripción : Programa que utiliza Timer para disparar ADC cuando hay
  	 	 	   flanco de bajada en MAT0.1.
  	 	 	   - P0.22 parpadea continuamente
  	 	 	   - P0.9 se enciende de acuerdo al valor convertido.
@@ -57,10 +58,10 @@ void confGPIO(void){
 void confADC(void){
 	LPC_PINCON->PINSEL1  |= (1<<14); // P0.23 como AD0.0
 	LPC_PINCON->PINMODE1 |= (1<<15); // neither pullup nor pulldown
-	LPC_SC->PCONP |= (1<<12);	 	// Enciende ADC
-	LPC_SC->PCLKSEL0 |= (3<<24); 	// CLK/8
-	LPC_ADC->ADCR |= (1<<21);	 	// Habilita ADC
-	LPC_ADC->ADCR &= ~(255 << 8);	// CLKDIV = 0;
+	LPC_SC->PCONP |= (1<<12);	 	 // Enciende ADC
+	LPC_SC->PCLKSEL0 |= (3<<24); 	 // CLK/8
+	LPC_ADC->ADCR |= (1<<21);	 	 // Habilita ADC
+	LPC_ADC->ADCR &= ~(255 << 8);	 // CLKDIV = 0;
 	LPC_ADC->ADCR &= ~(1 << 16);     // No burst
 	// Comenzar conversion en MAT0.1 con flanco de bajada.
 	LPC_ADC->ADCR |= (1<<26);
@@ -109,5 +110,4 @@ void ADC_IRQHandler(void){
 
 	volt = (ADC0Value/4096)*3.3;
 	return;
-
 }
