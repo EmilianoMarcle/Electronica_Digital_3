@@ -3,7 +3,7 @@
  Name        : Ejemplo_UART_RX_Int.c
  Author      : Marclé Emiliano
  Version     : 1.0
- Description : Transmisión UART2 usando interrupción por THRE.
+ Description : Recepción UART2 usando interrupciones.
 ===============================================================================
 */
 #include "LPC17xx.h"
