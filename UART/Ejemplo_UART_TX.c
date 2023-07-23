@@ -3,7 +3,7 @@
  Name        : Ejemplo_UART.c
  Author      : Marclé Emiliano
  Version     : 1.0
- Description :
+ Description : Transmisión por UART2
 ===============================================================================
 */
 #include "LPC17xx.h"
