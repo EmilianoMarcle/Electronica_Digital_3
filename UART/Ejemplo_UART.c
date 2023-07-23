@@ -34,17 +34,15 @@ int main (void){
 
 /* ----- Función de configuración de Pines ----- */
 void confPin(void){
-
 	/* Configuración pin de TXD2 (P0.10) y RXD2 (P0.11) */
 	PINSEL_CFG_Type PinCfg;
-
-	PinCfg.Funcnum = 1;
-	PinCfg.OpenDrain = 0;
-	PinCfg.Pinmode = 0;
-	PinCfg.Pinnum = 10;
-	PinCfg.Portnum = 0;
+	PinCfg.Funcnum = PINSEL_FUNC_1;
+	PinCfg.OpenDrain = PINSEL_PINMODE_NORMAL;
+	PinCfg.Pinmode = PINSEL_PINMODE_PULLUP;
+	PinCfg.Pinnum = PINSEL_PIN_10;
+	PinCfg.Portnum = PINSEL_PORT_0;
 	PINSEL_ConfigPin(&PinCfg);
-	PinCfg.Pinnum = 11;
+	PinCfg.Pinnum = PINSEL_PIN_11;
 	PINSEL_ConfigPin(&PinCfg);
 	return;
 }
