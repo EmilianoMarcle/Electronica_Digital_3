@@ -81,7 +81,7 @@ void confTimer(void){
 	 * - PCLK = CCLK/4;
 	 */
 	TimerConfig.PrescaleOption = TIM_PRESCALE_USVAL;
-	TimerConfig.PrescaleValue = PR_VAL;  // 0,5 seg.
+	TimerConfig.PrescaleValue = PR_VAL;  // 250 mseg.
 
 	MatchConfig.MatchChannel = 0;
 	MatchConfig.IntOnMatch = DISABLE;
