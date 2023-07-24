@@ -101,7 +101,7 @@ void confTimer(void){
 void EINT1_IRQHandler(void){
 	static uint32_t prescaler = PRESCALER_VAL;
 
-	/* Disminue la frecuencia del parpadeo a la mitad duplicando el PRESCALER */
+	/* Disminuye la frecuencia del parpadeo a la mitad duplicando el PRESCALER */
 	prescaler *= 2;
 	TimerConfig.PrescaleValue = prescaler;
 	TIM_Cmd(LPC_TIM2, DISABLE);  // Deshabilita el Timer2
