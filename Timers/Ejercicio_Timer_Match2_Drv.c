@@ -15,7 +15,7 @@
 #include "lpc17xx_timer.h"
 
 /* ------ Macros ------ */
-#define  PRESCALER_VAL  ((uint32_t)  250000)
+#define  PRE_VAL  ((uint32_t)  250000)
 
 /* ------ Prototipos de funciones ------ */
 void confIntExt(void);
@@ -80,7 +80,7 @@ void confTimer(void){
 	 * - PCLK = CCLK/4;
 	 */
 	TimerConfig.PrescaleOption = TIM_PRESCALE_USVAL;
-	TimerConfig.PrescaleValue = PRESCALER_VAL;  // 0,5 seg.
+	TimerConfig.PrescaleValue = PR_VAL;  // 250 mseg.
 
 	MatchConfig.MatchChannel = 0;
 	MatchConfig.IntOnMatch = DISABLE;
@@ -99,7 +99,7 @@ void confTimer(void){
 }
 
 void EINT1_IRQHandler(void){
-	static uint32_t prescaler = PRESCALER_VAL;
+	static uint32_t prescaler = PR_VAL;
 
 	/* Disminuye la frecuencia del parpadeo a la mitad duplicando el PRESCALER */
 	prescaler *= 2;
