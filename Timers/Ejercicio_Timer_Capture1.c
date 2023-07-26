@@ -64,6 +64,7 @@ void confTimer(void){
 	return;
 }
 
+/* Handler TIM0 */
 void TIMER0_IRQHandler(void){
 	static uint8_t flag = 0;
 
