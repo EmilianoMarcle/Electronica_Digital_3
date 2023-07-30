@@ -31,9 +31,7 @@ int main(void) {
 	confTimer();	// Configuración de Timer0
 	confADC();		// Configuración de ADC
 
-    while(1) {
-
-    }
+    while(1) {}
     return 0 ;
 }
 
@@ -117,6 +115,5 @@ void ADC_IRQHandler(void){
 		ADC0Value = (LPC_ADC->ADDR0 >> 4) & 0xFFF;
 		LPC_GPIO0->FIOPINL = ADC0Value;
 	}
-
 	return;
 }
