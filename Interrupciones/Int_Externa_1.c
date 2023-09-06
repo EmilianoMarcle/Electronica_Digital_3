@@ -89,7 +89,7 @@ void EINT1_IRQHandler(void){
 
 /*
  * Handler de interrupción EINT2
- * Cuando se detecta el flanco de bajada se configura el SysTick para 60ms.
+ * Cuando se detecta el flanco de subida se configura el SysTick para 60ms.
  */
 void EINT2_IRQHandler(void){
 	SysTick_Config(TICKS2);		// Configura SysTick para interrumpir cada 60ms.
