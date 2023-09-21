@@ -8,7 +8,8 @@
 ===============================================================================
 */
 #include "LPC17xx.h"
-
+/* Macros */
+#define MR_VAL ((uint32_t) 70000000)  // Valor de Match. T=(1/100MHz)*(PR+1)*(MR+1)=0,7seg.
 /* Prototipos de funciones */
 void confGPIO(void);
 void confTimer(void);
@@ -29,7 +30,7 @@ void confTimer(){
 	LPC_SC->PCLKSEL0    |= (1<<2);  // Clock=CCLK. Configuro divisor frecuencia.
 	LPC_PINCON->PINSEL3 |= (3<<24); // Selecciona funcion MAT0.0 en P1.28
 	LPC_TIM0->EMR       |= (3<<4);  // Toggle en cada match de MAT0.0
-	LPC_TIM0->MR0        = 70000000;// Valor de Match. T=(1/100MHz)*(PR+1)*(MR+1)=0,7seg
+	LPC_TIM0->MR0        = (MR_VAL-1);
 	LPC_TIM0->MCR       |= (1<<1);  // Reset en MR0.
 	LPC_TIM0->MCR       &=~(1<<0);  // Deshabilita interrupcion en Match
 	LPC_TIM0->TCR		 = 3; 		// Habilita el contador, y pongo en reset el TC y PC.
