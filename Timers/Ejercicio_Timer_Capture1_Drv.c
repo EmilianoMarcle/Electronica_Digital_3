@@ -19,8 +19,7 @@
 void confTimer(void);
 
 /* ----- Variable globales ----- */
-uint32_t val1 = 0;
-uint32_t val2 = 0;
+uint32_t val1, val2;
 uint32_t shooter;
 uint8_t count = 0;
 PINSEL_CFG_Type PinConfig;
@@ -31,13 +30,15 @@ TIM_CAPTURECFG_Type CaptureConfig;
 int main(void) {
 
 	confTimer();	// Configuración de TIM0.
+
+	/* Habilitación del Timer*/
+	TIM_Cmd(LPC_TIM0, ENABLE);
+
     while(1) {
 
     	/* Realiza el cálculo solo cuando count=1 */
     	if(count){
     		shooter = (val2-val1);
-    		val1=0;
-    		val2=0;
     		count = 0;
     	}
     }
@@ -56,11 +57,7 @@ void confTimer(void){
 	PinConfig.OpenDrain = PINSEL_PINMODE_NORMAL;
 	PINSEL_ConfigPin(&PinConfig);
 
-	PinConfig.Portnum = PINSEL_PORT_1;
 	PinConfig.Pinnum = PINSEL_PIN_27;
-	PinConfig.Funcnum = PINSEL_FUNC_3;
-	PinConfig.Pinmode = PINSEL_PINMODE_PULLUP;
-	PinConfig.OpenDrain = PINSEL_PINMODE_NORMAL;
 	PINSEL_ConfigPin(&PinConfig);
 
 	/* Configuración Timer */
@@ -83,9 +80,6 @@ void confTimer(void){
 
 	CaptureConfig.CaptureChannel = 1;
 	TIM_ConfigCapture(LPC_TIM0, &CaptureConfig);
-
-	/* Habilitación de Timer */
-	TIM_Cmd(LPC_TIM0, ENABLE);
 
 	NVIC_EnableIRQ(TIMER0_IRQn);  // Habilita interrupción en NVIC.
 
